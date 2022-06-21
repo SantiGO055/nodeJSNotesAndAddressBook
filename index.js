@@ -5,11 +5,25 @@ var morgan = require("morgan");
 const cors = require("cors");
 //port at which the server will run
 const WebSocket = require('ws');
-
+require("dotenv").config();
+const API_KEY = process.env.API_KEY;
 var notesRoute = require("./notes/notes");
 var personsRoute = require("./persons/persons");
 var utils = require("./utils/utils");
 const app = express();
+const axios = require('axios');
+
+async function llamar (){
+    await axios.get(`http://api.ipstack.com/check?access_key=${API_KEY}`,{timeout: 40000})
+    .then(response =>console.log(response.data))
+    .catch(error=>{
+      console.log("error!")
+      console.log(error)
+    })
+
+}
+llamar();
+// console.log(API_KEY)
 // morgan.token("type", function (req, res) {
 //   return req.headers["content-type"];
 // });
